@@ -2,14 +2,15 @@ import {reducer} from "./reducer";
 import {IContext, Key} from "types";
 import {
   useMemo,
+  useEffect,
+  useContext,
   useReducer,
   useCallback,
   createContext,
-  useContext,
 } from "react";
 
 export const Context = createContext<IContext>({
-  answer: "",
+  displayWord: [],
   word: undefined,
   status: "initial",
   onStart: () => undefined,
@@ -24,24 +25,59 @@ interface GameProviderProps {
 
 export const Provider: React.FC<GameProviderProps> = ({children}) => {
   const [state, dispatch] = useReducer(reducer, {
-    answer: "",
     word: undefined,
+    displayWord: [],
     status: "initial",
   });
-  const {word} = state;
+  const {word, displayWord, status} = state;
 
   const onStart = useCallback((): void => {
-    dispatch({type: "start", payload: "amor"});
+    let word: string, temp: string[], displayWord: string[];
+    word = "amor";
+    temp = word.split("");
+    displayWord = temp.map((hint, i) => {
+      if (i === 0 || i + 1 === temp.length) return hint;
+      return "";
+    });
+    dispatch({
+      type: "start",
+      payload: {
+        word,
+        displayWord,
+      },
+    });
   }, []);
 
   const onChange = useCallback(
     (key: Key): void => {
-      console.log(word);
-      console.log(key);
+      if (!word || displayWord.includes(key)) return;
+      if (word.includes(key)) {
+        let indexes: number[], temp: string[];
+        indexes = [];
+        temp = word.split("");
+        for (let i = 0; i < temp.length; i++) {
+          if (temp[i] === key) {
+            indexes.push(i);
+          }
+        }
+        dispatch({type: "right-try", payload: {indexes, key}});
+      } else {
+      }
     },
-    [word]
+    [word, displayWord]
   );
 
-  const values = useMemo(() => ({...state, onStart, onChange}), [word]);
+  useEffect(() => {
+    if (status !== "playing") return;
+    let winner: boolean = true;
+    for (const letter of displayWord) {
+      if (!letter) winner = false;
+    }
+    if (winner) {
+      dispatch({type: "winner"});
+    }
+  }, [state]);
+
+  const values = useMemo(() => ({...state, onStart, onChange}), [state]);
   return <Context.Provider value={values}>{children}</Context.Provider>;
 };
