@@ -33,7 +33,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
 
   const onStart = useCallback((): void => {
     let word: string, temp: string[], displayWord: string[];
-    word = "amor";
+    word = "zarza";
     temp = word.split("");
     displayWord = temp.map((hint, i) => {
       if (i === 0 || i + 1 === temp.length) return hint;
@@ -50,7 +50,11 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
 
   const onChange = useCallback(
     (key: Key): void => {
-      if (!word || displayWord.includes(key)) return;
+      let tempDisplay = [...displayWord];
+      tempDisplay.pop();
+      tempDisplay.shift();
+
+      if (!word || tempDisplay.includes(key)) return;
       if (word.includes(key)) {
         let indexes: number[], temp: string[];
         indexes = [];
