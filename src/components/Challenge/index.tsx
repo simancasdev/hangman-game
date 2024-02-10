@@ -5,10 +5,10 @@ import {Container, Hint} from "./styled";
 interface ChallengeProps {}
 
 export const Challenge: React.FC<ChallengeProps> = () => {
-  const {word} = useGame();
+  const {word, displayWord} = useGame();
   return word ? (
     <Container style={{gridTemplateColumns: `repeat(${word.length}, 90px)`}}>
-      {word.split("").map((letter, key) => (
+      {displayWord.map((letter, key) => (
         <Hint key={key} children={letter} />
       ))}
     </Container>
