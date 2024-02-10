@@ -1,12 +1,8 @@
-import {GameStatus, Key} from ".";
-
-export type AppActions = Start;
-
-export type Start = {type: "start"; payload: string};
+import {GameStatus, Key} from "types";
 
 export type AppState = {
-  answer: string;
   status: GameStatus;
+  displayWord: string[];
   word: string | undefined;
 };
 
