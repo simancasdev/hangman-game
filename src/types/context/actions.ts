@@ -1,9 +1,10 @@
-import {Alert} from "./state";
+import {Alert} from "./states";
 
 export type Start = {
   type: "start";
   payload: {
     word: string;
+    stages: string[];
     displayWord: string[];
   };
 };
