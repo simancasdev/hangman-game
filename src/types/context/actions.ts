@@ -1,3 +1,5 @@
+import {Alert} from "./state";
+
 export type Start = {
   type: "start";
   payload: {
@@ -35,11 +37,17 @@ export type TimeOver = {
   type: "time-over";
 };
 
-export type AppActions =
-  | Start
-  | RightTry
-  | WrongTry
+export type GameAlert = {
+  type: "alert";
+  payload: Alert;
+};
+
+export type GameReducerActions =
   | Wins
   | Lose
+  | Start
   | Cofetti
-  | TimeOver;
+  | RightTry
+  | WrongTry
+  | TimeOver
+  | GameAlert;
