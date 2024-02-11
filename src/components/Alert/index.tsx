@@ -1,21 +1,23 @@
 import {Fragment} from "react";
 import {useGame} from "context";
 import {Check} from "react-feather";
-import {Container, Dialog} from "./styled";
+import {Backdrop, Dialog} from "./styled";
+import {Typography} from "components/Typography";
 
 interface AlertProps {}
 
 export const Alert: React.FC<AlertProps> = () => {
-  const {alert} = useGame();
-  const {type, message} = alert;
-  const showAlert = typeof type !== "undefined";
-  return true ? (
-    <Container>
+  const {alert, onAlert} = useGame();
+  const {type, message, show} = alert;
+
+  return show ? (
+    <Fragment>
+      <Backdrop onClick={() => {}} />
       <Dialog>
         <Check />
-        Has ganado
+        <Typography>{message}</Typography>
       </Dialog>
-    </Container>
+    </Fragment>
   ) : (
     <Fragment />
   );
