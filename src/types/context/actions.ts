@@ -14,8 +14,21 @@ export type RightTry = {
   };
 };
 
-export type Winner = {
-  type: "winner";
+export type WrongTry = {
+  type: "wrong-try";
 };
 
-export type AppActions = Start | RightTry | Winner;
+export type Wins = {
+  type: "wins";
+};
+
+export type Lose = {
+  type: "lose";
+};
+
+export type Cofetti = {
+  type: "confetti";
+  payload: boolean;
+};
+
+export type AppActions = Start | RightTry | WrongTry | Wins | Lose | Cofetti;
