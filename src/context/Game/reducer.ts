@@ -1,7 +1,10 @@
-import {AppActions, AppState} from "types";
-import {defaultReducerState} from "./default-state";
+import {GameReducerActions, GameState} from "types";
+import {defaultReducerState} from "./default-states";
 
-export const reducer = (state: AppState, action: AppActions): AppState => {
+export const reducer = (
+  state: GameState,
+  action: GameReducerActions
+): GameState => {
   switch (action.type) {
     case "start":
       const {word, displayWord} = action.payload;
@@ -44,6 +47,11 @@ export const reducer = (state: AppState, action: AppActions): AppState => {
       return {
         ...state,
         failAttempts: state.failAttempts + 1,
+      };
+    case "alert":
+      return {
+        ...state,
+        alert: {...action.payload},
       };
     case "lose":
     case "time-over":

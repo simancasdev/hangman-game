@@ -1,7 +1,11 @@
 import {reducer} from "./reducer";
-import {IContext, Key} from "types";
 import {ATTEMPTS_TO_COMPLETE_DRAWING} from "./helper";
-import {defaultContextState, defaultReducerState} from "./default-state";
+import {Alert, AlertConfig, Context, Key} from "types";
+import {
+  defaultAlertState,
+  defaultContextState,
+  defaultReducerState,
+} from "./default-states";
 import {
   useMemo,
   useEffect,
@@ -11,9 +15,9 @@ import {
   createContext,
 } from "react";
 
-export const Context = createContext<IContext>(defaultContextState);
+export const GameContext = createContext<Context>(defaultContextState);
 
-export const useGame = (): IContext => useContext(Context);
+export const useGame = (): Context => useContext(GameContext);
 
 interface GameProviderProps {
   children: JSX.Element | JSX.Element[];
@@ -38,6 +42,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
         displayWord,
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChange = useCallback(
@@ -63,22 +68,44 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
         dispatch({type: "wrong-try"});
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [word, displayWord, status]
   );
+
+  const onAlert = useCallback(
+    (
+      show: boolean,
+      message?: string,
+      type?: Alert["type"],
+      config?: AlertConfig
+    ) => {
+      dispatch({
+        type: "alert",
+        payload: {
+          show,
+          type,
+          message,
+          config: {...defaultAlertState["config"], ...config},
+        },
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const onTimeIsOver = useCallback((): void => {
+    dispatch({type: "time-over"});
+    onAlert(true, "Time is over", "error");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onConfetti = useCallback(
     (payload: boolean): void => dispatch({type: "confetti", payload}),
     []
   );
 
-  const onTimeIsOver = useCallback(
-    (): void => dispatch({type: "time-over"}),
-    []
-  );
-
   useEffect(() => {
     if (status !== "playing") return;
-
     // handling when user wins
     let wins: boolean = true;
     for (const letter of displayWord) {
@@ -86,16 +113,20 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
     }
     if (wins) {
       dispatch({type: "wins"});
+      onAlert(true, "You won! Congratulations", "success");
     }
     // handling when user lose
     if (failAttempts === ATTEMPTS_TO_COMPLETE_DRAWING) {
       dispatch({type: "lose"});
+      onAlert(true, "Oh no. You did it well, try again", "error");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   const values = useMemo(
-    () => ({...state, onStart, onChange, onConfetti, onTimeIsOver}),
+    () => ({...state, onStart, onAlert, onChange, onConfetti, onTimeIsOver}),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]
   );
-  return <Context.Provider value={values}>{children}</Context.Provider>;
+  return <GameContext.Provider value={values}>{children}</GameContext.Provider>;
 };
