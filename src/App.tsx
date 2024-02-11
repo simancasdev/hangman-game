@@ -1,6 +1,6 @@
 import {useGame} from "context";
 import styled from "styled-components";
-import {Start, Challenge, Keyboard, Confetti, Draw} from "components";
+import {Start, Challenge, Keyboard, Confetti, Drawing} from "components";
 
 const Layout = styled.main`
   gap: 2rem;
@@ -15,7 +15,7 @@ function App() {
   const {onChange} = useGame();
   return (
     <Layout>
-      <Draw />
+      <Drawing />
       <Start />
       <Challenge />
       <Keyboard onKeyPressed={(key) => onChange(key)} />

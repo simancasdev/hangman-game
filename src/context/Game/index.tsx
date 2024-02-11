@@ -20,6 +20,7 @@ interface GameProviderProps {
 }
 
 export const Provider: React.FC<GameProviderProps> = ({children}) => {
+  // change this initial state
   const [state, dispatch] = useReducer(reducer, {
     word: undefined,
     displayWord: [],
@@ -88,7 +89,6 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
     if (wins) {
       dispatch({type: "wins"});
     }
-
     // handling when user lose
     if (failAttempts === ATTEMPTS_TO_COMPLETE_DRAWING) {
       dispatch({type: "lose"});

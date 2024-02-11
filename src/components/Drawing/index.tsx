@@ -1,8 +1,7 @@
-import {Fragment} from "react";
 import {Guy, Tree} from "./lib";
 import styled from "styled-components";
 
-interface DrawProps {}
+interface DrawingProps {}
 
 const Container = styled.div`
   display: flex;
@@ -10,7 +9,7 @@ const Container = styled.div`
   align-items: flex-end;
 `;
 
-export const Draw: React.FC<DrawProps> = () => {
+export const Drawing: React.FC<DrawingProps> = () => {
   return (
     <Container>
       <Guy />
