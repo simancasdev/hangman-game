@@ -106,6 +106,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
 
   useEffect(() => {
     if (status !== "playing") return;
+
     // handling when user wins
     let wins: boolean = true;
     for (const letter of displayWord) {
@@ -115,6 +116,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
       dispatch({type: "wins"});
       onAlert(true, "You won! Congratulations", "success");
     }
+
     // handling when user lose
     if (failAttempts === ATTEMPTS_TO_COMPLETE_DRAWING) {
       dispatch({type: "lose"});

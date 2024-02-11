@@ -1,1 +1,3 @@
-export type AlertConfig = {};
+export type AlertConfig = {
+  autoCloseMs?: number;
+};
