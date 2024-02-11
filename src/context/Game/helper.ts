@@ -1,3 +1,4 @@
+export const INITIAL_GAME_DURATION = 60; // <-- seconds
 export const ATTEMPTS_TO_COMPLETE_GUY_DRAWING = 7;
 export const ATTEMPTS_TO_COMPLETE_TREE_DRAWING = 3;
 export const ATTEMPTS_TO_COMPLETE_DRAWING =

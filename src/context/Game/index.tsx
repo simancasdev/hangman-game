@@ -1,5 +1,5 @@
 import {reducer} from "./reducer";
-import {ATTEMPTS_TO_COMPLETE_DRAWING} from "./helper";
+import {useGameListener} from "./hooks";
 import {Alert, AlertConfig, Context, Key} from "types";
 import {
   defaultAlertState,
@@ -8,7 +8,6 @@ import {
 } from "./default-states";
 import {
   useMemo,
-  useEffect,
   useContext,
   useReducer,
   useCallback,
@@ -28,8 +27,9 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
   const {word, displayWord, status, failAttempts} = state;
 
   const onStart = useCallback((): void => {
-    let word: string, temp: string[], displayWord: string[];
-    word = "zarza";
+    let word: string, temp: string[], displayWord: string[], stages: string[];
+    stages = ["amor", "perro", "gato", "playstation"];
+    word = stages[0];
     temp = word.split("");
     displayWord = temp.map((hint, i) => {
       if (i === 0 || i + 1 === temp.length) return hint;
@@ -39,6 +39,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
       type: "start",
       payload: {
         word,
+        stages,
         displayWord,
       },
     });
@@ -104,26 +105,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
     []
   );
 
-  useEffect(() => {
-    if (status !== "playing") return;
-
-    // handling when user wins
-    let wins: boolean = true;
-    for (const letter of displayWord) {
-      if (!letter) wins = false;
-    }
-    if (wins) {
-      dispatch({type: "wins"});
-      onAlert(true, "You won! Congratulations", "success");
-    }
-
-    // handling when user lose
-    if (failAttempts === ATTEMPTS_TO_COMPLETE_DRAWING) {
-      dispatch({type: "lose"});
-      onAlert(true, "Oh no. You did it well, try again", "error");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+  useGameListener(state, {dispatch, onAlert});
 
   const values = useMemo(
     () => ({...state, onStart, onAlert, onChange, onConfetti, onTimeIsOver}),

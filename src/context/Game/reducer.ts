@@ -7,10 +7,11 @@ export const reducer = (
 ): GameState => {
   switch (action.type) {
     case "start":
-      const {word, displayWord} = action.payload;
+      const {word, displayWord, stages} = action.payload;
       return {
         ...defaultReducerState,
         word,
+        stages,
         displayWord,
         status: "playing",
         showConfetti: false,
@@ -26,6 +27,21 @@ export const reducer = (
         displayWord: temp,
         showConfetti: true,
       };
+    case "wrong-try":
+      return {
+        ...state,
+        failAttempts: state.failAttempts + 1,
+      };
+    case "confetti":
+      return {
+        ...state,
+        showConfetti: action.payload,
+      };
+    case "alert":
+      return {
+        ...state,
+        alert: {...action.payload},
+      };
     case "wins":
       return {
         ...state,
@@ -37,21 +53,6 @@ export const reducer = (
           gravity: 0.1,
           numberOfPieces: 500,
         },
-      };
-    case "confetti":
-      return {
-        ...state,
-        showConfetti: action.payload,
-      };
-    case "wrong-try":
-      return {
-        ...state,
-        failAttempts: state.failAttempts + 1,
-      };
-    case "alert":
-      return {
-        ...state,
-        alert: {...action.payload},
       };
     case "lose":
     case "time-over":
