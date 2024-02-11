@@ -7,7 +7,11 @@ interface ChallengeProps {}
 export const Challenge: React.FC<ChallengeProps> = () => {
   const {word, displayWord} = useGame();
   return word ? (
-    <Container style={{gridTemplateColumns: `repeat(${word.length}, 90px)`}}>
+    <Container
+      style={{
+        gridTemplateColumns: `repeat(${word.length}, minmax(50px, 1fr))`,
+      }}
+    >
       {displayWord.map((letter, key) => (
         <Hint key={key} children={letter} />
       ))}

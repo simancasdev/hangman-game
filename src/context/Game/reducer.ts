@@ -1,12 +1,12 @@
 import {AppActions, AppState} from "types";
-import {defaultState} from "./default-state";
+import {defaultReducerState} from "./default-state";
 
 export const reducer = (state: AppState, action: AppActions): AppState => {
   switch (action.type) {
     case "start":
       const {word, displayWord} = action.payload;
       return {
-        ...defaultState,
+        ...defaultReducerState,
         word,
         displayWord,
         status: "playing",
@@ -26,6 +26,7 @@ export const reducer = (state: AppState, action: AppActions): AppState => {
     case "wins":
       return {
         ...state,
+        victory: true,
         status: "finished",
         showConfetti: true,
         confettiConfig: {
@@ -45,6 +46,7 @@ export const reducer = (state: AppState, action: AppActions): AppState => {
         failAttempts: state.failAttempts + 1,
       };
     case "lose":
+    case "time-over":
       return {
         ...state,
         status: "finished",

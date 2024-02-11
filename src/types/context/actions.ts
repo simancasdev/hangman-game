@@ -31,4 +31,15 @@ export type Cofetti = {
   payload: boolean;
 };
 
-export type AppActions = Start | RightTry | WrongTry | Wins | Lose | Cofetti;
+export type TimeOver = {
+  type: "time-over";
+};
+
+export type AppActions =
+  | Start
+  | RightTry
+  | WrongTry
+  | Wins
+  | Lose
+  | Cofetti
+  | TimeOver;

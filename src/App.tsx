@@ -1,11 +1,25 @@
+import {Fragment} from "react";
 import {useGame} from "context";
 import styled from "styled-components";
-import {Start, Challenge, Keyboard, Confetti, Drawing} from "components";
+import {
+  Nav,
+  Alert,
+  Start,
+  Drawing,
+  Keyboard,
+  Confetti,
+  Challenge,
+} from "components";
 
 const Layout = styled.main`
   gap: 2rem;
-  display: flex;
+  display: grid;
   height: 100vh;
+  grid-template-rows: 60px auto;
+`;
+
+const Content = styled.section`
+  display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -14,13 +28,19 @@ const Layout = styled.main`
 function App() {
   const {onChange} = useGame();
   return (
-    <Layout>
-      <Drawing />
-      <Start />
-      <Challenge />
-      <Keyboard onKeyPressed={(key) => onChange(key)} />
+    <Fragment>
+      <Layout>
+        <Nav />
+        <Content>
+          <Drawing />
+          <Start />
+          <Challenge />
+          <Keyboard onKeyPressed={(key) => onChange(key)} />
+        </Content>
+      </Layout>
+      <Alert />
       <Confetti />
-    </Layout>
+    </Fragment>
   );
 }
 

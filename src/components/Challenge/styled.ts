@@ -6,23 +6,32 @@ export const Container = styled.div`
 `;
 
 export const Hint = styled.div`
+  color: #fff;
   height: 80px;
   display: flex;
+  font-size: 2rem;
+  font-weight: bold;
+  position: relative;
   align-items: center;
   justify-content: center;
-  position: relative;
-  font-size: 2rem;
-  color: #fff;
+  transition: all ease 0.3s;
   text-transform: capitalize;
-  font-weight: bold;
+
   &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
+    content: "";
     width: 100%;
     height: 2px;
+    position: absolute;
     border-radius: 1rem;
     background-color: #fff;
+    transition: all ease 0.3s;
+  }
+  &:hover {
+    font-size: 2.4rem;
+    &::after {
+      height: 4px;
+    }
   }
 `;

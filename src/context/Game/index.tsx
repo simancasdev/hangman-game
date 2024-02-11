@@ -1,7 +1,7 @@
 import {reducer} from "./reducer";
 import {IContext, Key} from "types";
-import {defaultState} from "./default-state";
 import {ATTEMPTS_TO_COMPLETE_DRAWING} from "./helper";
+import {defaultContextState, defaultReducerState} from "./default-state";
 import {
   useMemo,
   useEffect,
@@ -11,7 +11,7 @@ import {
   createContext,
 } from "react";
 
-export const Context = createContext<IContext>(defaultState);
+export const Context = createContext<IContext>(defaultContextState);
 
 export const useGame = (): IContext => useContext(Context);
 
@@ -20,15 +20,7 @@ interface GameProviderProps {
 }
 
 export const Provider: React.FC<GameProviderProps> = ({children}) => {
-  // change this initial state
-  const [state, dispatch] = useReducer(reducer, {
-    word: undefined,
-    displayWord: [],
-    failAttempts: 0,
-    status: "initial",
-    showConfetti: false,
-    confettiConfig: {...defaultState.confettiConfig},
-  });
+  const [state, dispatch] = useReducer(reducer, defaultReducerState);
   const {word, displayWord, status, failAttempts} = state;
 
   const onStart = useCallback((): void => {
@@ -74,9 +66,15 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
     [word, displayWord, status]
   );
 
-  const onConfetti = useCallback((payload: boolean) => {
-    dispatch({type: "confetti", payload});
-  }, []);
+  const onConfetti = useCallback(
+    (payload: boolean): void => dispatch({type: "confetti", payload}),
+    []
+  );
+
+  const onTimeIsOver = useCallback(
+    (): void => dispatch({type: "time-over"}),
+    []
+  );
 
   useEffect(() => {
     if (status !== "playing") return;
@@ -96,7 +94,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
   }, [state]);
 
   const values = useMemo(
-    () => ({...state, onStart, onChange, onConfetti}),
+    () => ({...state, onStart, onChange, onConfetti, onTimeIsOver}),
     [state]
   );
   return <Context.Provider value={values}>{children}</Context.Provider>;
