@@ -17,10 +17,11 @@ const countDownProps: Props = {
 
 export const Nav: React.FC<NavProps> = () => {
   const {status, currentStage, stages, gameDuration, onTimeIsOver} = useGame();
+  const isPlaying = status === "playing";
   return (
     <Container>
       <Block style={{justifyContent: "flex-start"}}>
-        {status === "playing" ? (
+        {isPlaying ? (
           <CountdownCircleTimer
             {...countDownProps}
             duration={gameDuration}
@@ -32,11 +33,15 @@ export const Nav: React.FC<NavProps> = () => {
           <div />
         )}
       </Block>
-      <Block>
-        <Typography color="#fff" fontWeight="bold" fontSize="1.2rem">
-          {currentStage}/{stages.length}
-        </Typography>
-      </Block>
+      {isPlaying ? (
+        <Block>
+          <Typography color="#fff" fontWeight="bold" fontSize="1.2rem">
+            {currentStage + 1}/{stages.length}
+          </Typography>
+        </Block>
+      ) : (
+        <div />
+      )}
       <Block style={{justifyContent: "flex-end"}}>
         <X color="#fff" />
       </Block>

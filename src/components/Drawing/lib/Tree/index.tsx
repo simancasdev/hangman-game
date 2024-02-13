@@ -2,7 +2,7 @@ import {Fragment} from "react";
 import {PARTS} from "./helper";
 import {Canvas} from "./styled";
 import {useGame} from "context";
-import {ATTEMPTS_TO_COMPLETE_GUY_DRAWING} from "context/Game/helper";
+import {ATTEMPTS_TO_COMPLETE_GUY_DRAWING} from "context/Game/constants";
 
 interface TreeProps {}
 
