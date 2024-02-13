@@ -1,5 +1,7 @@
-export const INITIAL_GAME_DURATION = 60; // <-- seconds
-export const ATTEMPTS_TO_COMPLETE_GUY_DRAWING = 7;
-export const ATTEMPTS_TO_COMPLETE_TREE_DRAWING = 3;
-export const ATTEMPTS_TO_COMPLETE_DRAWING =
-  ATTEMPTS_TO_COMPLETE_GUY_DRAWING + ATTEMPTS_TO_COMPLETE_TREE_DRAWING;
+export const createDisplayWord = (word: string): string[] => {
+  let temp = word.split("");
+  return temp.map((hint, i) => {
+    if (i === 0 || i + 1 === temp.length) return hint;
+    return "";
+  });
+};

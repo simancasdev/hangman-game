@@ -1,5 +1,6 @@
 import {reducer} from "./reducer";
 import {useGameListener} from "./hooks";
+import {createDisplayWord} from "./helper";
 import {Alert, AlertConfig, Context, Key} from "types";
 import {
   defaultAlertState,
@@ -24,17 +25,13 @@ interface GameProviderProps {
 
 export const Provider: React.FC<GameProviderProps> = ({children}) => {
   const [state, dispatch] = useReducer(reducer, defaultReducerState);
-  const {word, displayWord, status, failAttempts} = state;
+  const {word, displayWord, status} = state;
 
   const onStart = useCallback((): void => {
-    let word: string, temp: string[], displayWord: string[], stages: string[];
-    stages = ["amor", "perro", "gato", "playstation"];
+    let word: string, displayWord: string[], stages: string[];
+    stages = ["hamburguesa", "perro", "cafe"];
     word = stages[0];
-    temp = word.split("");
-    displayWord = temp.map((hint, i) => {
-      if (i === 0 || i + 1 === temp.length) return hint;
-      return "";
-    });
+    displayWord = createDisplayWord(word);
     dispatch({
       type: "start",
       payload: {
@@ -50,7 +47,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
     (key: Key): void => {
       if (status !== "playing") return;
 
-      let tempDisplay = [...displayWord];
+      const tempDisplay = [...displayWord];
       tempDisplay.pop();
       tempDisplay.shift();
       if (!word || tempDisplay.includes(key)) return;
