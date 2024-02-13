@@ -9,9 +9,9 @@ export type GameState = {
   status: GameStatus;
   gameDuration: number;
   failAttempts: number;
+  currentStage: number;
   showConfetti: boolean;
   displayWord: string[];
   word: string | undefined;
-  currentStage: number | undefined;
   confettiConfig: Partial<IConfettiOptions>;
 };
