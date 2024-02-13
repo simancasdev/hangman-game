@@ -1,3 +1,4 @@
+import {createDisplayWord} from "./helper";
 import {GameReducerActions, GameState} from "types";
 import {defaultReducerState} from "./default-states";
 
@@ -53,6 +54,16 @@ export const reducer = (
           gravity: 0.1,
           numberOfPieces: 500,
         },
+      };
+    case "next-stage":
+      const nextStageIndex = state.currentStage + 1;
+      const nextWord = state.stages[nextStageIndex];
+      const nextDisplayWord = createDisplayWord(nextWord);
+      return {
+        ...state,
+        word: nextWord,
+        displayWord: nextDisplayWord,
+        currentStage: nextStageIndex,
       };
     case "lose":
     case "time-over":

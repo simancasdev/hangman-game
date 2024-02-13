@@ -43,6 +43,10 @@ export type GameAlert = {
   payload: Alert;
 };
 
+export type NextStage = {
+  type: "next-stage";
+};
+
 export type GameReducerActions =
   | Wins
   | Lose
@@ -51,4 +55,5 @@ export type GameReducerActions =
   | RightTry
   | WrongTry
   | TimeOver
+  | NextStage
   | GameAlert;

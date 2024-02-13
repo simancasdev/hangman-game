@@ -1,13 +1,13 @@
 import {GameState} from "types";
 import {defaultAlertState} from "./alert";
-import {INITIAL_GAME_DURATION} from "../helper";
 import {defaultConfettiConfig} from "./confetti";
+import {INITIAL_GAME_DURATION} from "../constants";
 
 export const defaultReducerState: GameState = {
   stages: [],
   victory: false,
   word: undefined,
-  currentStage: 1,
+  currentStage: 0,
   displayWord: [],
   failAttempts: 0,
   status: "initial",
