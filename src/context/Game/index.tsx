@@ -1,5 +1,6 @@
 import {reducer} from "./reducer";
 import {useGameListener} from "./hooks";
+import {ALL_STAGES} from "./all-stages";
 import {createDisplayWord} from "./helper";
 import {Alert, AlertConfig, Context, Key} from "types";
 import {
@@ -29,7 +30,7 @@ export const Provider: React.FC<GameProviderProps> = ({children}) => {
 
   const onStart = useCallback((): void => {
     let word: string, displayWord: string[], stages: string[];
-    stages = ["hamburguesa", "perro", "cafe"];
+    stages = ALL_STAGES;
     word = stages[0];
     displayWord = createDisplayWord(word);
     dispatch({
