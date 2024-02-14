@@ -1,2 +1,2 @@
-export * from "./actions";
-export * from "./states";
+export * from "./game";
+export * from "./UI";
