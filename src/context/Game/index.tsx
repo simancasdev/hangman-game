@@ -2,12 +2,7 @@ import {reducer} from "./reducer";
 import {useGameListener} from "./hooks";
 import {ALL_STAGES} from "./all-stages";
 import {createDisplayWord} from "./helper";
-import {Alert, AlertConfig, Context, Key} from "types";
-import {
-  defaultAlertState,
-  defaultContextState,
-  defaultReducerState,
-} from "./default-states";
+import {Alert, AlertConfig, GameContext as IContext, Key} from "types";
 import {
   useMemo,
   useContext,
@@ -15,16 +10,21 @@ import {
   useCallback,
   createContext,
 } from "react";
+import {
+  defaultAlertState,
+  defaultContextState,
+  defaultReducerState,
+} from "./default-states";
 
-export const GameContext = createContext<Context>(defaultContextState);
+export const GameContext = createContext<IContext>(defaultContextState);
 
-export const useGame = (): Context => useContext(GameContext);
+export const useGame = (): IContext => useContext(GameContext);
 
 interface GameProviderProps {
   children: JSX.Element | JSX.Element[];
 }
 
-export const Provider: React.FC<GameProviderProps> = ({children}) => {
+export const GameProvider: React.FC<GameProviderProps> = ({children}) => {
   const [state, dispatch] = useReducer(reducer, defaultReducerState);
   const {word, displayWord, status} = state;
 
