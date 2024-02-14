@@ -29,10 +29,4 @@ export const Hint = styled.div`
     background-color: #fff;
     transition: all ease 0.3s;
   }
-  &:hover {
-    font-size: 2.4rem;
-    &::after {
-      height: 4px;
-    }
-  }
 `;
