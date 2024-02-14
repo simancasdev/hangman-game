@@ -1,1 +1,2 @@
-export * from "./Game/index";
+export * from "./Game";
+export * from "./UI";
