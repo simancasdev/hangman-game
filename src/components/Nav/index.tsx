@@ -1,8 +1,8 @@
-import {Fragment} from "react";
 import {useGame} from "context";
-import {Typography} from "components/Typography";
+import {IconButton, Typography} from "components";
 import {Container, TimeLabel, Block} from "./styled";
 import {CountdownCircleTimer, Props} from "react-countdown-circle-timer";
+import {X} from "react-feather";
 
 interface NavProps {}
 
@@ -20,26 +20,31 @@ export const Nav: React.FC<NavProps> = () => {
   const isPlaying = status === "playing";
   return (
     <Container>
+      <Block style={{justifyContent: "flex-start"}}>
+        {isPlaying ? (
+          <CountdownCircleTimer
+            {...countDownProps}
+            duration={gameDuration}
+            onComplete={onTimeIsOver}
+          >
+            {({remainingTime}) => <TimeLabel>{remainingTime}</TimeLabel>}
+          </CountdownCircleTimer>
+        ) : (
+          <div />
+        )}
+      </Block>
       {isPlaying ? (
-        <Fragment>
-          <Block style={{justifyContent: "flex-start"}}>
-            <CountdownCircleTimer
-              {...countDownProps}
-              duration={gameDuration}
-              onComplete={onTimeIsOver}
-            >
-              {({remainingTime}) => <TimeLabel>{remainingTime}</TimeLabel>}
-            </CountdownCircleTimer>
-          </Block>
-          <Block style={{justifyContent: "flex-end"}}>
-            <Typography color="#fff" fontWeight="bold" fontSize="1.2rem">
-              {currentStage + 1}/{stages.length}
-            </Typography>
-          </Block>
-        </Fragment>
+        <Block>
+          <Typography color="#fff" fontWeight="bold" fontSize="1.2rem">
+            {currentStage + 1}/{stages.length}
+          </Typography>
+        </Block>
       ) : (
-        <Fragment />
+        <div />
       )}
+      <Block style={{justifyContent: "flex-end"}}>
+        <IconButton children={<X color="#fff" />} />
+      </Block>
     </Container>
   );
 };

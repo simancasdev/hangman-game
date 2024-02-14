@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: grid;
   padding: 0 1rem;
   align-items: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 export const TimeLabel = styled.span`
