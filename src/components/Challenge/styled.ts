@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: grid;
   grid-gap: 1rem;
+  padding: 0 1rem;
 `;
 
 export const Hint = styled.div`

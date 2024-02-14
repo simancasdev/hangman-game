@@ -18,8 +18,8 @@ export const useGameListener = (
 ): void => {
   const {status, displayWord, failAttempts, stages, currentStage} = state;
 
-  // This listener check the user interactions to
-  // determinate if user wins or lose.
+  // This listener check the user
+  // interactions  to determinate if user wins or lose.
   useEffect(() => {
     if (status !== "playing") return;
 

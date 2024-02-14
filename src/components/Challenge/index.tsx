@@ -9,7 +9,7 @@ export const Challenge: React.FC<ChallengeProps> = () => {
   return word ? (
     <Container
       style={{
-        gridTemplateColumns: `repeat(${word.length}, minmax(50px, 1fr))`,
+        gridTemplateColumns: `repeat(${word.length}, 1fr)`,
       }}
     >
       {displayWord.map((letter, key) => (
