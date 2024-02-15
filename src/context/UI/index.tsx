@@ -20,8 +20,12 @@ interface UIProviderProps {
 export const UIProvider: React.FC<UIProviderProps> = ({children}) => {
   const [state, dispatch] = useReducer(reducer, defaultReducerState);
 
+  const onMenu = useCallback((payload: boolean) => {
+    dispatch({type: "menu", payload});
+  }, []);
+
   const values = useMemo(
-    () => ({...state}),
+    () => ({...state, onMenu}),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]
   );
