@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-export const Backdrop = styled.div`
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  backdrop-filter: blur(6px);
-  background-color: rgba(40, 44, 52, 0.5);
-`;
-
 export const Dialog = styled.div`
   top: 50%;
   left: 50%;

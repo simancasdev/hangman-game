@@ -1,8 +1,8 @@
+import {Dialog} from "./styled";
 import {useGame} from "context";
-import {Typography} from "components";
 import {Check, X} from "react-feather";
-import {Backdrop, Dialog} from "./styled";
 import {Fragment, useEffect} from "react";
+import {Backdrop, Typography} from "components";
 
 interface AlertProps {}
 
