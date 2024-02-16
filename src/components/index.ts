@@ -8,4 +8,5 @@ export * from "./Keyboard";
 export * from "./Menu";
 export * from "./Nav";
 export * from "./Start";
+export * from "./Toggle";
 export * from "./Typography";
