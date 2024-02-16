@@ -7,6 +7,11 @@ export const reducer = (state: UIState, action: UIReducerActions): UIState => {
         ...state,
         menuOpened: action.payload,
       };
+    case "theme":
+      return {
+        ...state,
+        defaultTheme: action.payload,
+      };
     default:
       return state;
   }

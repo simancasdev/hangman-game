@@ -1,5 +1,5 @@
 import {reducer} from "./reducer";
-import {UIContext as IContext} from "types";
+import {GameTheme, UIContext as IContext} from "types";
 import {defaultContextState, defaultReducerState} from "./default-states";
 import {
   useMemo,
@@ -24,8 +24,12 @@ export const UIProvider: React.FC<UIProviderProps> = ({children}) => {
     dispatch({type: "menu", payload});
   }, []);
 
+  const toggleTheme = useCallback((payload: GameTheme) => {
+    dispatch({type: "theme", payload});
+  }, []);
+
   const values = useMemo(
-    () => ({...state, onMenu}),
+    () => ({...state, onMenu, toggleTheme}),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]
   );
