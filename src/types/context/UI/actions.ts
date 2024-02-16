@@ -1,4 +1,4 @@
-import {GameTheme} from "./states";
+import {GameTheme, GameLanguage} from "./states";
 
 export type Menu = {
   type: "menu";
@@ -10,4 +10,9 @@ export type Theme = {
   payload: GameTheme;
 };
 
-export type UIReducerActions = Menu | Theme;
+export type Language = {
+  type: "language";
+  payload: GameLanguage;
+};
+
+export type UIReducerActions = Menu | Theme | Language;
