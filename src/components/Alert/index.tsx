@@ -18,6 +18,7 @@ export const Alert: React.FC<AlertProps> = () => {
         onAlert(false);
       }, autoCloseMs);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, config]);
 
   return show ? (
