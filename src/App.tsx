@@ -3,6 +3,7 @@ import {useGame} from "context";
 import styled from "styled-components";
 import {
   Nav,
+  Menu,
   Alert,
   Start,
   Drawing,
@@ -38,6 +39,8 @@ function App() {
           <Keyboard onKeyPressed={(key) => onChange(key)} />
         </Content>
       </Layout>
+      {/* 🌎 global components */}
+      <Menu />
       <Alert />
       <Confetti />
     </Fragment>
