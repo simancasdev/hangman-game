@@ -1,5 +1,5 @@
 import {reducer} from "./reducer";
-import {GameTheme, UIContext as IContext} from "types";
+import {GameLanguage, GameTheme, UIContext as IContext, Language} from "types";
 import {defaultContextState, defaultReducerState} from "./default-states";
 import {
   useMemo,
@@ -28,8 +28,12 @@ export const UIProvider: React.FC<UIProviderProps> = ({children}) => {
     dispatch({type: "theme", payload});
   }, []);
 
+  const toggleLanguage = useCallback((payload: GameLanguage) => {
+    dispatch({type: "language", payload});
+  }, []);
+
   const values = useMemo(
-    () => ({...state, onMenu, toggleTheme}),
+    () => ({...state, onMenu, toggleTheme, toggleLanguage}),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]
   );

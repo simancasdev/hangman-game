@@ -12,6 +12,11 @@ export const reducer = (state: UIState, action: UIReducerActions): UIState => {
         ...state,
         defaultTheme: action.payload,
       };
+    case "language":
+      return {
+        ...state,
+        language: action.payload,
+      };
     default:
       return state;
   }
