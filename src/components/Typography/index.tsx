@@ -1,4 +1,5 @@
 import {Text} from "./styled";
+import {useUI} from "context";
 import {Children} from "types";
 import {CSSProperties} from "react";
 
@@ -7,6 +8,8 @@ interface TypographyProps
     Pick<CSSProperties, "fontWeight" | "color" | "fontSize"> {}
 
 export const Typography: React.FC<TypographyProps> = (props) => {
-  const {children, ...propStyles} = props;
-  return <Text style={propStyles} children={children} />;
+  const {defaultTheme} = useUI();
+  const {children, ...styleProps} = props;
+  const {color = defaultTheme === "light" ? "#000" : "#fff"} = styleProps;
+  return <Text style={{...styleProps, color}} children={children} />;
 };
