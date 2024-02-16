@@ -12,11 +12,12 @@ type Dimension = {
 export const Confetti: React.FC<ConfettiProps> = () => {
   const {showConfetti, onConfetti, confettiConfig} = useGame();
   const [{width, height}, setDimension] = useState<Dimension>({
-    width: window.innerHeight,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
   });
 
   useEffect(() => {
+    setDimension({width: window.innerWidth, height: window.innerHeight});
     window.addEventListener("resize", () => {
       const {innerWidth, innerHeight} = window;
       setDimension({width: innerWidth, height: innerHeight});
