@@ -38,7 +38,7 @@ export const Nav: React.FC<NavProps> = () => {
       </Block>
       {isPlaying ? (
         <Block>
-          <Typography color="#fff" fontWeight="bold" fontSize="1.2rem">
+          <Typography fontWeight="bold" fontSize="1.2rem">
             {currentStage + 1}/{stages.length}
           </Typography>
         </Block>
