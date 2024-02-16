@@ -1,5 +1,6 @@
 export * from "./Alert";
 export * from "./Backdrop";
+export * from "./Box";
 export * from "./Challenge";
 export * from "./Confetti";
 export * from "./Drawing";
